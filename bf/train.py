@@ -25,7 +25,7 @@ TRAIN_CONFIG = {
     "eval_freq": 500,
     "checkpoint_freq": 4000,
     "guidance_scale": 7.5,
-    "constant_noise": True,
+    "constant_noise": False,
     "example_prompts": [
         "a cyberpunk woman riding a red motorcycle",
         "a photo of a cat",
