@@ -20,7 +20,7 @@ TRAIN_CONFIG = {
     "bs": 4,
     "grad_accum_steps": 1,
     "num_steps": 2000,
-    "warmup_steps": 100,
+    "warmup_steps": 50,
     "eval_freq": 100,
     "checkpoint_freq": 500,
     "guidance_scale": 7.5,

@@ -248,7 +248,7 @@ class BoltFlowTrainer:
 
         # set up network modes
         student_unet.train()
-        teacher_unet.unet.eval()
+        teacher_unet.eval()
         pipe.text_encoder.eval()
         pipe.vae.eval()
 
