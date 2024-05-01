@@ -188,11 +188,14 @@ class BoltFlowTrainer:
         prompt_embeds, _ = pipe.encode_prompt(self.example_prompts, constants.DEVICE, 1, False)
 
         # generate noise deterministically
-        generator = torch.Generator().manual_seed(0)
-        noise = torch.randn(
-            *constants.LATENT_SHAPE(n_examples),
-            generator=generator
-        ).to(constants.DEVICE)
+        if self.constant_noise:
+            noise = self.noise.expand(n_examples, -1, -1, -1)
+        else:
+            generator = torch.Generator().manual_seed(0)
+            noise = torch.randn(
+                *constants.LATENT_SHAPE(n_examples),
+                generator=generator
+            ).to(constants.DEVICE)
 
         # get the model output
         student_output = student_unet(
@@ -315,19 +318,18 @@ class BoltFlowTrainer:
                         with torch.no_grad():
                             prompt_embeds, _ = pipe.encode_prompt(prompts, constants.DEVICE, 1, False)
 
-                        # get the noise for the student and teacher
-                        student_noise = torch.randn(
-                            *constants.LATENT_SHAPE(self.bs),
-                            generator=generator
-                        ).to(constants.DEVICE)
+                        # get the noise for the sample
                         if self.constant_noise:
-                            teacher_noise = self.noise.expand(self.bs, -1, -1, -1)
+                            noise = self.noise.expand(self.bs, -1, -1, -1)
                         else:
-                            teacher_noise = student_noise
+                            noise = torch.randn(
+                                *constants.LATENT_SHAPE(self.bs),
+                                generator=generator
+                            ).to(constants.DEVICE)
 
                         # get the model output
                         student_output = student_unet(
-                            student_noise,
+                            noise,
                             student_t_vec,
                             prompt_embeds.float(),
                         ).sample
@@ -335,7 +337,7 @@ class BoltFlowTrainer:
                             pipe.scheduler,
                             student_output,
                             student_t_vec,
-                            student_noise
+                            noise
                         )
 
                         # get the sample and teacher output 
@@ -350,7 +352,7 @@ class BoltFlowTrainer:
                                     dtype=torch.long
                             ).to(constants.DEVICE)
                             x_t = pipe.scheduler.add_noise(
-                                x, teacher_noise, t
+                                x, noise, t
                             )
 
                             # get inputs for the teacher
