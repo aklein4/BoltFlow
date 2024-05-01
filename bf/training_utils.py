@@ -123,4 +123,5 @@ def boltflow_loss(
     pred_original_sample = get_original_sample(scheduler, model_output, timestep, sample)
 
     # boltflow loss
-    return F.mse_loss(x, pred_original_sample) / torch.sqrt(beta_prod_t)
+    loss =  ((x - pred_original_sample)**2) / torch.sqrt(beta_prod_t)
+    return loss.mean()
