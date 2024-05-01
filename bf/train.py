@@ -40,7 +40,7 @@ TRAIN_CONFIG = {
 DEBUG = False
 
 # name of the run
-NAME = 'boltflow-8-const'
+NAME = 'boltflow-8-var'
 
 
 def main():
