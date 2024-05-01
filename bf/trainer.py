@@ -89,7 +89,7 @@ class BoltFlowTrainer:
         api = hf.HfApi()
 
         # save hyperparams as csv
-        with open(os.path.join(constants.LOCAL_DATA_DIR(self._hyper_file)), 'w') as outfile:
+        with open(self._hyper_file, 'w') as outfile:
             yaml.dump(
                 {k: str(getattr(self, k)) for k in self._hyperparams},
                 outfile,
