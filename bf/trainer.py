@@ -185,7 +185,7 @@ class BoltFlowTrainer:
         )
 
         # get the prompt embeddings
-        prompt_embeds, _ = pipe.encode_prompt(self.examples, constants.DEVICE, 1, False)
+        prompt_embeds, _ = pipe.encode_prompt(self.example_prompts, constants.DEVICE, 1, False)
 
         # generate noise deterministically
         generator = torch.Generator().manual_seed(0)
