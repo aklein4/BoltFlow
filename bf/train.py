@@ -17,12 +17,12 @@ DATA_SPLIT = 'small'
 TRAIN_CONFIG = {
     "dtype": torch.bfloat16,
     "lr": 3e-6,
-    "bs": 4,
+    "bs": 8,
     "grad_accum_steps": 1,
-    "num_steps": 2000,
-    "warmup_steps": 50,
+    "num_steps": 5000,
+    "warmup_steps": 500,
     "eval_freq": 100,
-    "checkpoint_freq": 500,
+    "checkpoint_freq": 1000,
     "guidance_scale": 7.5,
     "constant_noise": True,
     "example_prompts": [
@@ -36,7 +36,7 @@ TRAIN_CONFIG = {
 }
 
 # whether to train with debugging
-DEBUG = True
+DEBUG = False
 
 # name of the run
 NAME = 'boltflow-8-const'
