@@ -53,7 +53,7 @@ class DiffusionDBLoader:
             if os.path.exists(path):
                 df = pd.read_parquet(path)
             else:
-                url = f"hf://{DIFF_DB_REPO}/{self.file}"
+                url = f"hf://datasets/{DIFF_DB_REPO}/{self.file}"
                 df = pd.read_parquet(url)
                 df.to_parquet(path)
 
