@@ -57,7 +57,7 @@ def get_original_sample(
         )
 
     # 2. compute alphas and betas, make broadcastable
-    alpha_prod_t = scheduler.alphas_cumprod[timestep]
+    alpha_prod_t = scheduler.alphas_cumprod.to(timestep.device)[timestep]
     while len(alpha_prod_t.shape) < len(sample.shape):
         alpha_prod_t = alpha_prod_t.unsqueeze(-1)
     beta_prod_t = 1 - alpha_prod_t
@@ -114,7 +114,7 @@ def boltflow_loss(
         )
 
     # compute alphas and betas, make broadcastable
-    alpha_prod_t = scheduler.alphas_cumprod[timestep]
+    alpha_prod_t = scheduler.alphas_cumprod.to(timestep.device)[timestep]
     while len(alpha_prod_t.shape) < len(sample.shape):
         alpha_prod_t = alpha_prod_t.unsqueeze(-1)
     beta_prod_t = 1 - alpha_prod_t
