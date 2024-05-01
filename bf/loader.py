@@ -55,6 +55,8 @@ class DiffusionDBLoader:
             else:
                 url = f"hf://datasets/{DIFF_DB_REPO}/{self.file}"
                 df = pd.read_parquet(url)
+
+                os.makedirs(os.path.dirname(path), exist_ok=True)
                 df.to_parquet(path)
 
             self.data = np.array(df["prompt"])
