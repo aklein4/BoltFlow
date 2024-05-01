@@ -20,10 +20,10 @@ TRAIN_CONFIG = {
     "lr": 3e-6,
     "bs": 8,
     "grad_accum_steps": 1,
-    "num_steps": 20000,
+    "num_steps": 8000,
     "warmup_steps": 1000,
     "eval_freq": 500,
-    "checkpoint_freq": 5000,
+    "checkpoint_freq": 4000,
     "guidance_scale": 7.5,
     "constant_noise": True,
     "example_prompts": [
