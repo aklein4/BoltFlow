@@ -288,7 +288,7 @@ class BoltFlowTrainer:
 
         # prepare for loop
         self.loss_log = []
-        self.train_loader.reset()
+        loader.reset()
         generator = torch.Generator().manual_seed(0)
 
         # run training loop
@@ -311,7 +311,7 @@ class BoltFlowTrainer:
                     ):
 
                         # get the prompts and embeddigns
-                        prompts = self.train_loader(self.bs)
+                        prompts = loader(self.bs)
                         with torch.no_grad():
                             prompt_embeds, _ = pipe.encode_prompt(prompts, constants.DEVICE, 1, False)
 
