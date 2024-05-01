@@ -25,7 +25,7 @@ TRAIN_CONFIG = {
     "eval_freq": 50,
     "checkpoint_freq": 250,
     "guidance_scale": 7.5,
-    "constant_noise": False,
+    "constant_noise": True,
     "example_prompts": [
         "a cyberpunk woman riding a red motorcycle",
         "a photo of a cat",
@@ -40,7 +40,7 @@ TRAIN_CONFIG = {
 DEBUG = False
 
 # name of the run
-NAME = 'boltflow-8-var'
+NAME = 'boltflow-8-const'
 
 
 def main():
