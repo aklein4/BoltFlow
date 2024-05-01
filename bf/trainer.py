@@ -106,7 +106,7 @@ class BoltFlowTrainer:
         plt.plot(steps_to_plot, roll["loss"].mean()[mask])
         plt.xlabel("Training Step")
         plt.ylabel("Loss")
-        plt.title(f"BoltFlow Training Progress (Step {len(self.log.loss)})")
+        plt.title(f"BoltFlow Training Progress (Step {len(self.loss_log)})")
         plt.savefig(self._plot_file)
         plt.close()
 
