@@ -17,7 +17,7 @@ DATA_SPLIT = 'small'
 # BoltFlow trainer hyperparameters
 TRAIN_CONFIG = {
     "dtype": torch.bfloat16,
-    "lr": 3e-6,
+    "lr": 1e-4,
     "bs": 8,
     "grad_accum_steps": 128//8,
     "num_steps": 500,
