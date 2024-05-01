@@ -1,6 +1,7 @@
 import torch
 
 from diffusers import DiffusionPipeline, DDIMScheduler, UNet2DConditionModel
+from diffusers import logging as diffusers_logging
 
 from loader import DiffusionDBLoader
 import constants as constants
@@ -19,10 +20,10 @@ TRAIN_CONFIG = {
     "lr": 3e-6,
     "bs": 8,
     "grad_accum_steps": 1,
-    "num_steps": 5000,
-    "warmup_steps": 500,
-    "eval_freq": 100,
-    "checkpoint_freq": 1000,
+    "num_steps": 20000,
+    "warmup_steps": 1000,
+    "eval_freq": 500,
+    "checkpoint_freq": 5000,
     "guidance_scale": 7.5,
     "constant_noise": True,
     "example_prompts": [
@@ -44,6 +45,9 @@ NAME = 'boltflow-8-const'
 
 def main():
     
+    # disable diffusers warnings
+    diffusers_logging.set_verbosity_error()
+
     print("Loading models...")
     
     # pipe and teacher
