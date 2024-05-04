@@ -266,11 +266,20 @@ class BoltFlowTrainer:
             student_unet.parameters(),
             lr=self.lr
         )
-        lr_scheduler = torch.optim.lr_scheduler.LinearLR(
+        warmup_scheduler = torch.optim.lr_scheduler.LinearLR(
             optimizer,
-            start_factor=1e-10,
+            start_factor=0.0,
             end_factor=1.0,
             total_iters=self.warmup_steps
+        )
+        cos_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+            optimizer,
+            self.num_steps - self.warmup_steps + 1,
+            0.0,
+        )
+        lr_scheduler = torch.optim.lr_scheduler.SequentialLR(
+            optimizer, [warmup_scheduler, cos_scheduler],
+            milestones=[self.warmup_steps]
         )
         scaler = torch.cuda.amp.GradScaler()
 

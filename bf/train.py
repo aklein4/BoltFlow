@@ -20,10 +20,10 @@ TRAIN_CONFIG = {
     "lr": 3e-6,
     "bs": 8,
     "grad_accum_steps": 128//8,
-    "num_steps": 500,
+    "num_steps": 2000,
     "warmup_steps": 100,
-    "eval_freq": 50,
-    "checkpoint_freq": 250,
+    "eval_freq": 100,
+    "checkpoint_freq": 500,
     "guidance_scale": 7.5,
     "constant_noise": True,
     "example_prompts": [
@@ -40,7 +40,7 @@ TRAIN_CONFIG = {
 DEBUG = False
 
 # name of the run
-NAME = 'boltflow-8-const'
+NAME = 'boltflow-8-const-cosine'
 
 
 def main():
