@@ -54,12 +54,14 @@ def main():
     scheduler = DDIMScheduler.from_pretrained(TEACHER_URL, subfolder='scheduler')
     pipe = DiffusionPipeline.from_pretrained(TEACHER_URL, scheduler=scheduler)
     pipe = pipe.to(constants.DEVICE)
+    pipe.enable_xformers_memory_efficient_attention()
     torch.compile(pipe, mode="reduce-overhead", fullgraph=True)
     teacher_unet = pipe.unet
 
     # student
     student_unet = UNet2DConditionModel.from_pretrained(STUDENT_URL, subfolder="unet")
     student_unet = student_unet.to(constants.DEVICE)
+    student_unet.enable_xformers_memory_efficient_attention()
     torch.compile(student_unet, mode="reduce-overhead", fullgraph=True)
 
     print("Loading data...")
