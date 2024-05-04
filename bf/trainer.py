@@ -268,14 +268,14 @@ class BoltFlowTrainer:
         )
         warmup_scheduler = torch.optim.lr_scheduler.LinearLR(
             optimizer,
-            start_factor=0.0,
+            start_factor=1e-10,
             end_factor=1.0,
             total_iters=self.warmup_steps
         )
         cos_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
             optimizer,
             self.num_steps - self.warmup_steps + 1,
-            0.0,
+            1e-10,
         )
         lr_scheduler = torch.optim.lr_scheduler.SequentialLR(
             optimizer, [warmup_scheduler, cos_scheduler],
